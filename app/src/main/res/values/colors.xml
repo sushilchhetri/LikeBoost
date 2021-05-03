@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="maincolor">#FF3D8CEF</color>
+    <color name="statuscolor">#FFFFFF</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF898C93</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!--TODO Custom color-->
+    <color name="maindark">#FF3A7BD5</color>
+    <color name="mainlight">#FF71AEF1</color>
+    <color name="txtcolor">#FF898C93</color>
+    <color name="iconcolor">#FF50566F</color>
+    <color name="graycolor">#FFCFD1D4</color>
+    <color name="red">#FD4F4F</color>
+    <color name="graylight">#E1DDDD</color>
+
+
+</resources>

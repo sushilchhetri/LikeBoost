@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--TODO Home_fragment-->
+    <item
+        android:id="@+id/home"
+        android:icon="@drawable/home_selector"
+        android:title="@string/first" />
+
+    <item
+        android:id="@+id/likes"
+        android:icon="@drawable/like_selector"
+
+        android:title="@string/second" />
+    <item
+        android:id="@+id/withdrawlike"
+        android:icon="@drawable/withdraw_selector"
+        android:title="@string/third" />
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/setting_selector"
+        android:title="@string/fourth" />
+
+
+</menu>
