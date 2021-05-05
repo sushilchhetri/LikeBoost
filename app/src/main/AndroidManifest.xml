@@ -4,6 +4,8 @@
     package="com.lynhillsoftwares.likeboost">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -11,16 +13,19 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LikeBoost"
-      >
-        <activity android:name=".ui.activity.HomeActivity">
+        android:theme="@style/Theme.LikeBoost">
+        <activity android:name=".login.Login_Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.activity.HomeActivity">
 
         </activity>
+
+
     </application>
 
 </manifest>

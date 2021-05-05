@@ -2,6 +2,8 @@ package com.lynhillsoftwares.likeboost;
 
 import android.app.Application;
 
+
+
 import io.github.inflationx.calligraphy3.CalligraphyConfig;
 import io.github.inflationx.calligraphy3.CalligraphyInterceptor;
 import io.github.inflationx.viewpump.ViewPump;
@@ -22,6 +24,7 @@ public class App extends Application {
         super.onCreate();
         initApplication();
         set_Calligraphy();
+//        AppEventsLogger.activateApp(this);
     }
 
     /**

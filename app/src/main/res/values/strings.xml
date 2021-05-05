@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">LikeBoost</string>
+
+    <!--TODO Facebook/inst-->
+    <string name="facebook_app_id">496444588462185</string>
+    <string name="fb_login_protocol_scheme">fb496444588462185</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--TODO Login Activity-->
+    <string name="login">Log in</string>
+    <string name="loginpagedes">You\'ll be logging in through Instagram\'s official website. </string>
+    <string name="firsttime">First time?</string>
+    <string name="firsttimeloginDes">You\'ll get automatically registered with us with the account that you log in on Instagram with.</string>
+    <string name="gotoinstagram">Go to Instagram</string>
 
     <!--TODO Menu option String -->
     <string name="first">Home</string>

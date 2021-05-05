@@ -13,6 +13,7 @@ import com.lynhillsoftwares.likeboost.ui.fragment.Home_fragment;
 import com.lynhillsoftwares.likeboost.ui.fragment.Likes_fragment;
 import com.lynhillsoftwares.likeboost.ui.fragment.Settings_fragment;
 import com.lynhillsoftwares.likeboost.ui.fragment.WithdrawLikes_fragment;
+import com.lynhillsoftwares.likeboost.utils.GetHASHKey;
 
 public class HomeActivity extends BaseActivity {
 
@@ -29,6 +30,7 @@ public class HomeActivity extends BaseActivity {
         setContentView(view);
 
         initBottomNavigation();
+
     }
 
     /*TODO init Bottom Navigation*/

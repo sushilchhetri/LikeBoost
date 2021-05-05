@@ -31,6 +31,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    android.defaultConfig.manifestPlaceholders = [
+
+            instagramClientId    : "496444588462185",
+            instagramClientSecret: "fb496444588462185",
+            instagramRedirectUrl : "https://www.back4app.com/docs/platform/instagram-oauth-tutorial"
+    ]
 }
 
 dependencies {
@@ -69,4 +76,10 @@ dependencies {
 
     /*TODO Gson */
     implementation 'com.google.code.gson:gson:2.8.6'
+
+
+    /*TODO Instagram*/
+    implementation 'com.jaychang:simpleauth-instagram:2.1.4'
+
+
 }
