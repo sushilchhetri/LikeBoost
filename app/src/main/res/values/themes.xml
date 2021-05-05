@@ -13,4 +13,18 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!--TODO Switch color-->
+    <style name="SwitchThemeOverlay" parent="">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/mainlight</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/maindark</item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">#666666
+        </item>
+    </style>
+
 </resources>

@@ -1,8 +1,20 @@
 <resources>
     <string name="app_name">LikeBoost</string>
+
+    <!--TODO Facebook/inst-->
+    <string name="facebook_app_id">496444588462185</string>
+    <string name="fb_login_protocol_scheme">fb496444588462185</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <!--TODO Login Activity-->
+    <string name="login">Log in</string>
+    <string name="loginpagedes">You\'ll be logging in through Instagram\'s official website. </string>
+    <string name="firsttime">First time?</string>
+    <string name="firsttimeloginDes">You\'ll get automatically registered with us with the account that you log in on Instagram with.</string>
+    <string name="gotoinstagram">Go to Instagram</string>
 
     <!--TODO Menu option String -->
     <string name="first">Home</string>
@@ -17,5 +29,32 @@
     <!--TODO Fragment Home-->
     <string name="available">Available:</string>
     <string name="pending">Pending:</string>
+    <string name="earnlikes">Earn Likes</string>
+    <string name="Withdrawlikes">Withdraw Likes</string>
+    <string name="needmorelike">Need more likes? Watch an ad!</string>
+    <string name="neddmorelike_txt">Get +2 likes for watching an ad.</string>
+    <string name="howDoesitWork">How does it work?</string>
+    <string name="howdoeswork_txt">Tap here to learn more about the app and how you can get more likes.</string>
+
+
+    <!--TODO Fragment Setting-->
+    <string name="version">0.0.3.4</string>
+    <string name="accountaction">Account actions</string>
+    <string name="logout">Log out from this account</string>
+    <string name="links">Links</string>
+    <string name="termsofservice">Terms of service</string>
+    <string name="enduserlicense">End-user license agreement(EULA)</string>
+    <string name="privacypolicy">Privacy policy</string>
+
+
+    <!--TODO Fragment Likes -->
+    <string name="likes_discription">You get one like to spend for every post you like!</string>
+    <string name="likeautmatically_txt"><b>Like posts automatically</b> Switch on to like everything. <b>It can run in background!</b></string>
+    <string name="skip">Skip</string>
+    <string name="likepost">Like post</string>
+    <string name="searchingforposts">Searching for posts</string>
+    <string name="req_post">reqesting posts in </string>
+    <string name="timeelapsed">Time elapsed:</string>
+    <string name="likesgiven">Likes given:</string>
 
 </resources>
