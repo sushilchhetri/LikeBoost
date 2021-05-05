@@ -52,10 +52,11 @@ public class HomeActivity extends BaseActivity {
                         transact(new Likes_fragment());
                         return true;
                     case R.id.withdrawlike:
-                        transact(new Settings_fragment());
+                        transact(new WithdrawLikes_fragment());
                         return true;
                     case R.id.setting:
-                        transact(new WithdrawLikes_fragment());
+
+                        transact(new Settings_fragment());
                         return true;
 
                 }

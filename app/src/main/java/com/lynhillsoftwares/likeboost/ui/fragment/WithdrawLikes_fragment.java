@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lynhillsoftwares.likeboost.R;
+import com.lynhillsoftwares.likeboost.databinding.FragmentSettingsBinding;
+import com.lynhillsoftwares.likeboost.databinding.FragmentWithdrawLikesBinding;
 
 
 public class WithdrawLikes_fragment extends Fragment {
 
+    /*TODO View Binding*/
+    private FragmentWithdrawLikesBinding vb;
 
 
     public WithdrawLikes_fragment() {
@@ -30,7 +34,10 @@ public class WithdrawLikes_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_withdraw_likes, container, false);
+
+        /*TODO init view Binding */
+        vb = FragmentWithdrawLikesBinding.inflate(inflater,container,false);
+
+        return vb.getRoot();
     }
 }

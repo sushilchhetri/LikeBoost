@@ -9,10 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lynhillsoftwares.likeboost.R;
+import com.lynhillsoftwares.likeboost.databinding.FragmentLikesBinding;
+import com.lynhillsoftwares.likeboost.databinding.FragmentSettingsBinding;
 
 
 public class Likes_fragment extends Fragment {
 
+    /*TODO View Binding*/
+    private FragmentLikesBinding vb;
 
     public Likes_fragment() {
         // Required empty public constructor
@@ -29,7 +33,12 @@ public class Likes_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_likes, container, false);
+
+        /*TODO init view Binding */
+        vb = FragmentLikesBinding.inflate(inflater,container,false);
+
+
+        return vb.getRoot();
+
     }
 }

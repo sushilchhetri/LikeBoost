@@ -1,178 +1,466 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragment.Home_fragment">
+    tools:context=".ui.fragment.Home_fragment"
 
-    <!--TODO top Container Available,pending likes-->
-    <LinearLayout
+    >
+
+    <!--TODO swipe to referesh layout-->
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:background="@drawable/gradient_bg"
-        >
+        android:layout_height="match_parent">
 
-        <!--TODO #image,available,pending,layout -->
-        <androidx.cardview.widget.CardView
+
+        <!--TODO main Container Where all layout is-->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="10dp"
-            app:cardElevation="5dp"
-            >
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <!--TODO top Container Available,pending likes-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:background="@drawable/gradient_bg"
                 android:orientation="vertical"
-                >
-                <!--TODO User img and username-->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/userdetail_Container">
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/user_img_CI"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@drawable/ic_user"
-                    app:civ_border_color="@color/mainlight"
+                android:padding="20dp"
+                android:weightSum="2">
 
-                    />
-
-                <TextView
-                    android:id="@+id/user_name_TV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="10dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="@string/demoLong"
-                    android:layout_gravity="center"
-                    android:textSize="14dp"
-                    android:textColor="@color/txtcolor"
-                    />
-                </LinearLayout>
-
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@id/userdetail_Container"
-                    android:background="@color/graylight"
-                    android:layout_marginTop="10dp"
-                    />
-
-
-                <!--TODO Like (Available, Pending)-->
-                <LinearLayout
+                <!--TODO #image,available,pending,layout -->
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                    android:weightSum="2"
-                    >
-                    <!--TODO Available-->
-                    <RelativeLayout
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="5dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        >
-                        <TextView
-                            android:id="@+id/avail_txt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/available"
-                            android:textSize="14sp"
-                            android:textColor="@color/mainlight"
-                            />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+                        <!--TODO User img and username-->
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:id="@+id/userdetail_Container"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/avail_txt"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="3dp"
-                            >
-                        <FrameLayout
-                            android:layout_width="20dp"
-                            android:layout_height="20dp">
-                        <ImageView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:src="@drawable/ic_likefill"
-                            app:tint="@color/red" />
-                        </FrameLayout>
-                        <TextView
-                            android:id="@+id/aval_likes_TV"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="17 Likes"
-                            android:paddingStart="5dp"
-                            android:textColor="@color/txtcolor"
-                            />
+                            android:orientation="horizontal">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/user_img_CI"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:src="@drawable/ic_user"
+                                app:civ_border_color="@color/mainlight"
+
+                                />
+
+                            <TextView
+                                android:id="@+id/user_name_TV"
+                                fontPath="fonts/SemiBold.otf"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:ellipsize="end"
+                                android:paddingStart="10dp"
+                                android:singleLine="true"
+                                android:text="@string/demoLong"
+                                android:textColor="@color/txtcolor"
+                                android:textSize="14dp" />
                         </LinearLayout>
 
-                    </RelativeLayout>
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="40dp"
-                        android:background="@color/graylight"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginEnd="10dp"
-                        />
-                    <!--TODO Pending-->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        >
-                        <TextView
-                            android:id="@+id/pending_txt"
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/pending"
-                            android:textSize="14sp"
-                            android:textColor="@color/mainlight"
-                            />
+                            android:layout_height="1dp"
+                            android:layout_below="@id/userdetail_Container"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/graylight" />
+
+
+                        <!--TODO Like (Available, Pending)-->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_below="@id/pending_txt"
+                            android:layout_marginTop="10dp"
                             android:orientation="horizontal"
-                            android:layout_marginTop="3dp"
-                            >
+                            android:weightSum="2">
+
+                            <!--TODO Available-->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/avail_txt"
+                                    fontPath="fonts/SemiBold.otf"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/available"
+                                    android:textColor="@color/mainlight"
+                                    android:textSize="14sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/avail_txt"
+                                    android:layout_marginTop="3dp"
+                                    android:orientation="horizontal">
+
+                                    <FrameLayout
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:src="@drawable/ic_likefill"
+                                            app:tint="@color/red" />
+                                    </FrameLayout>
+
+                                    <TextView
+                                        android:id="@+id/aval_likes_TV"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="5dp"
+                                        android:text="17 Likes"
+                                        android:textColor="@color/txtcolor" />
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginStart="10dp"
+                                android:layout_marginEnd="10dp"
+                                android:background="@color/graylight" />
+
+                            <!--TODO Pending-->
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <TextView
+                                    android:id="@+id/pending_txt"
+                                    fontPath="fonts/SemiBold.otf"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/pending"
+                                    android:textColor="@color/mainlight"
+                                    android:textSize="14sp" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/pending_txt"
+                                    android:layout_marginTop="3dp"
+                                    android:orientation="horizontal">
+
+                                    <FrameLayout
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp">
+
+                                        <ImageView
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:src="@drawable/ic_likeline" />
+                                    </FrameLayout>
+
+                                    <TextView
+                                        android:id="@+id/pending_likes_TV"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="5dp"
+                                        android:text="0 Likes"
+                                        android:textColor="@color/txtcolor" />
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <!--TODO # earn , withdraw likes button-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <!--TODO #Earn Likes Button-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="5dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/mainlight"
+                        app:cardCornerRadius="30dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
                             <FrameLayout
-                                android:layout_width="20dp"
-                                android:layout_height="20dp">
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/circle"
+                                android:padding="8dp">
+
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_likeline"
-                                    />
+                                    android:src="@drawable/ic_likeline" />
                             </FrameLayout>
+
                             <TextView
-                                android:id="@+id/pending_likes_TV"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="0 Likes"
+                                fontPath="fonts/SemiBold.otf"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="start|center"
                                 android:paddingStart="5dp"
-                                android:textColor="@color/txtcolor"
-                                />
+                                android:text="@string/earnlikes"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
                         </LinearLayout>
-                    </RelativeLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <!--TODO # WithDraw Likes Button-->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1"
+                        app:cardBackgroundColor="@color/mainlight"
+                        app:cardCornerRadius="30dp"
+
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp">
+
+                            <FrameLayout
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:background="@drawable/circle"
+                                android:padding="8dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/ic_withdrawline" />
+                            </FrameLayout>
+
+                            <TextView
+                                fontPath="fonts/SemiBold.otf"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="start|center"
+                                android:paddingStart="5dp"
+                                android:text="@string/Withdrawlikes"
+                                android:textColor="@color/white"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
 
                 </LinearLayout>
 
+            </LinearLayout>
+
+
+            <!--TODO tab layout (need more likes?, How does it work?)-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    app:cardBackgroundColor="@color/mainlight"
+                    app:cardCornerRadius="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp">
+
+                        <!--TODO icon -->
+                        <FrameLayout
+                            android:id="@+id/needmotelike_FL"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/circle"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_likefill" />
+                        </FrameLayout>
+
+
+                        <!--TODO TExt layout-->
+                        <TextView
+                            android:id="@+id/needtext_TV"
+                            fontPath="fonts/SemiBold.otf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_toStartOf="@id/nextarrow_FL"
+                            android:layout_toEndOf="@id/needmotelike_FL"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="3dp"
+                            android:text="@string/needmorelike"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            fontPath="fonts/light.otf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/needtext_TV"
+                            android:layout_toStartOf="@id/nextarrow_FL"
+                            android:layout_toEndOf="@id/needmotelike_FL"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="8dp"
+                            android:text="@string/neddmorelike_txt"
+                            android:textColor="@color/graylight"
+                            android:textSize="14dp"/>
+
+
+                        <!--TODO side arrow-->
+                        <FrameLayout
+                            android:id="@+id/nextarrow_FL"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/edge_round_bg"
+                            android:padding="3dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_next"
+                                app:tint="@color/iconcolor" />
+                        </FrameLayout>
+
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-    </LinearLayout>
+            <!--TODO tab layout (need more likes?, How does it work?)-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    app:cardBackgroundColor="@color/mainlight"
+                    app:cardCornerRadius="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="10dp">
+
+                        <!--TODO icon -->
+                        <FrameLayout
+                            android:id="@+id/howdoeswork_FL"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/circle"
+                            android:padding="10dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_withdrawfill" />
+                        </FrameLayout>
 
 
+                        <!--TODO TExt layout-->
+                        <TextView
+                            android:id="@+id/howdoestext_TV"
+                            fontPath="fonts/SemiBold.otf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentTop="true"
+                            android:layout_toStartOf="@id/nextsecondarrow_FL"
+                            android:layout_toEndOf="@id/howdoeswork_FL"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="3dp"
+                            android:text="@string/howDoesitWork"
+                            android:textColor="@color/white"
+                            android:textSize="14sp" />
 
-</LinearLayout>
+                        <TextView
+                            fontPath="fonts/light.otf"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/howdoestext_TV"
+                            android:layout_toStartOf="@id/nextsecondarrow_FL"
+                            android:layout_toEndOf="@id/howdoeswork_FL"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="8dp"
+                            android:text="@string/howdoeswork_txt"
+                            android:textColor="@color/graylight"
+                            android:textSize="14dp"/>
+
+
+                        <!--TODO side arrow-->
+                        <FrameLayout
+                            android:id="@+id/nextsecondarrow_FL"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/edge_round_bg"
+                            android:padding="3dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@drawable/ic_next"
+                                app:tint="@color/iconcolor" />
+                        </FrameLayout>
+
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
