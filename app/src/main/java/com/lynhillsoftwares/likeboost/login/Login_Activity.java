@@ -40,14 +40,15 @@ public class Login_Activity extends BaseActivity {
 
     void connectToInstagram() {
 
-        List<String> scopes = Arrays.asList("user_birthday", "user_friends");
+        List<String> scopes = Arrays.asList("Email");
 
         SimpleAuth.connectInstagram(scopes, new AuthCallback() {
             @Override
             public void onSuccess(SocialUser socialUser) {
-                Log.d(TAG, "userId:" + socialUser.userId);
-                Log.d(TAG, "email:" + socialUser.email);
-                Log.d(TAG, "accessToken:" + socialUser.accessToken);
+
+                Log.e(TAG, "userId:" + socialUser.userId);
+                Log.e(TAG, "email:" + socialUser.email);
+                Log.e(TAG, "accessToken:" + socialUser.accessToken);
 
             }
 
@@ -63,6 +64,5 @@ public class Login_Activity extends BaseActivity {
         });
     }
 
-//    vikram.thakur.9256
 
 }
