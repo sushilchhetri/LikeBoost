@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "17961942989",
+    "project_id": "likeboost-eaf3a",
+    "storage_bucket": "likeboost-eaf3a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17961942989:android:c7ed18f77818acd2ca8e84",
+        "android_client_info": {
+          "package_name": "com.lynhillsoftwares.likeboost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17961942989-35c0be72eoojkv7t1ruks08mkudd9u8q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmrCWn6Uiq5U4_9ejcDPHLaODl8RxpBg4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17961942989-35c0be72eoojkv7t1ruks08mkudd9u8q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
