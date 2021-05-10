@@ -13,8 +13,8 @@ public class Post_pojo implements Parcelable {
     private String post_by_Id;
     private String post_by_name;
     private String post_by_email;
-    private String want_like;
-    private String gotten_like;
+    private int want_like;
+    private int gotten_like;
     private String time_stamp;
 
     /*TODO default constructor */
@@ -27,8 +27,8 @@ public class Post_pojo implements Parcelable {
         post_by_Id = in.readString();
         post_by_name = in.readString();
         post_by_email = in.readString();
-        want_like = in.readString();
-        gotten_like = in.readString();
+        want_like = in.readInt();
+        gotten_like = in.readInt();
         time_stamp = in.readString();
     }
 
@@ -84,19 +84,19 @@ public class Post_pojo implements Parcelable {
         this.post_by_email = post_by_email;
     }
 
-    public String getWant_like() {
+    public int getWant_like() {
         return want_like;
     }
 
-    public void setWant_like(String want_like) {
+    public void setWant_like(int want_like) {
         this.want_like = want_like;
     }
 
-    public String getGotten_like() {
+    public int getGotten_like() {
         return gotten_like;
     }
 
-    public void setGotten_like(String gotten_like) {
+    public void setGotten_like(int gotten_like) {
         this.gotten_like = gotten_like;
     }
 
@@ -120,8 +120,8 @@ public class Post_pojo implements Parcelable {
         dest.writeString(post_by_Id);
         dest.writeString(post_by_name);
         dest.writeString(post_by_email);
-        dest.writeString(want_like);
-        dest.writeString(gotten_like);
+        dest.writeInt(want_like);
+        dest.writeInt(gotten_like);
         dest.writeString(time_stamp);
     }
 }

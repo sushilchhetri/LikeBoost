@@ -1,4 +1,4 @@
-package com.lynhillsoftwares.likeboost.ui.fragment;
+package com.lynhillsoftwares.likeboost.ui.settingsFragment;
 
 import android.os.Bundle;
 
@@ -7,9 +7,6 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.lynhillsoftwares.likeboost.R;
-import com.lynhillsoftwares.likeboost.databinding.FragmentHomeBinding;
 import com.lynhillsoftwares.likeboost.databinding.FragmentSettingsBinding;
 
 

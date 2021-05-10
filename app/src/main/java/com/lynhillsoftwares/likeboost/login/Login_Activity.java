@@ -1,23 +1,34 @@
 package com.lynhillsoftwares.likeboost.login;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
-import com.jaychang.sa.AuthCallback;
-import com.jaychang.sa.SocialUser;
-import com.jaychang.sa.instagram.SimpleAuth;
+
+import androidx.appcompat.app.AlertDialog;
+
 import com.lynhillsoftwares.likeboost.databinding.ActivityLoginBinding;
+import com.lynhillsoftwares.likeboost.instagramlogin.SimpleAuth;
+import com.lynhillsoftwares.likeboost.instagramlogin.callback.AuthCallback;
+import com.lynhillsoftwares.likeboost.instagramlogin.pojo.SocialUser;
 import com.lynhillsoftwares.likeboost.ui.activity.BaseActivity;
+import com.lynhillsoftwares.likeboost.ui.activity.HomeActivity;
+import com.lynhillsoftwares.likeboost.utils.Constant;
 
 import java.util.Arrays;
 import java.util.List;
+
+import io.paperdb.Paper;
 
 public class Login_Activity extends BaseActivity {
 
     private static final String TAG = Login_Activity.class.getSimpleName();
     /*TODO ViewBinding*/
     private ActivityLoginBinding vb;
+
+
 
 
     @Override
@@ -27,8 +38,9 @@ public class Login_Activity extends BaseActivity {
         vb = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(vb.getRoot());
 
-    }
 
+
+    }
 
 
     /*TODO init facebook login button click*/
@@ -38,23 +50,29 @@ public class Login_Activity extends BaseActivity {
 
     }
 
+
+
+    /*TODO Connect To Instagram */
     void connectToInstagram() {
 
-        List<String> scopes = Arrays.asList("Email");
+        List<String> scopes = Arrays.asList("user_profile", "user_media");
 
-        SimpleAuth.connectInstagram(scopes, new AuthCallback() {
+        SimpleAuth.connectInstagram(this, scopes, new AuthCallback() {
             @Override
             public void onSuccess(SocialUser socialUser) {
+                Log.e(TAG, "onSuccess:@@@@@@@@@@@@@@@@ " + socialUser);
 
-                Log.e(TAG, "userId:" + socialUser.userId);
-                Log.e(TAG, "email:" + socialUser.email);
-                Log.e(TAG, "accessToken:" + socialUser.accessToken);
+                /*TODO save UserDetails in paper*/
+                saveUserDetails(socialUser);
+
+                /*TODO onsuccessfully fetching data move to Login Activity*/
+                HomeActivity.startActivity(Login_Activity.this);
 
             }
 
             @Override
             public void onError(Throwable error) {
-                Log.d(TAG, error.getMessage());
+                Log.e(TAG, error.getMessage() + "   error*************");
             }
 
             @Override
@@ -62,6 +80,16 @@ public class Login_Activity extends BaseActivity {
                 Log.d(TAG, "Canceled");
             }
         });
+
+
+    }
+
+
+    /*TODO save UserDetails in paper*/
+    private void saveUserDetails(SocialUser socialUser) {
+
+        Paper.book().write(Constant.LOGINUSER,socialUser);
+
     }
 
 

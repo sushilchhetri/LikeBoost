@@ -3,22 +3,31 @@ package com.lynhillsoftwares.likeboost.ui.activity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.lynhillsoftwares.likeboost.R;
 import com.lynhillsoftwares.likeboost.databinding.ActivityHomeBinding;
-import com.lynhillsoftwares.likeboost.ui.fragment.Home_fragment;
-import com.lynhillsoftwares.likeboost.ui.fragment.Likes_fragment;
-import com.lynhillsoftwares.likeboost.ui.fragment.Settings_fragment;
-import com.lynhillsoftwares.likeboost.ui.fragment.WithdrawLikes_fragment;
-import com.lynhillsoftwares.likeboost.utils.GetHASHKey;
+import com.lynhillsoftwares.likeboost.ui.homeFragment.Home_fragment;
+import com.lynhillsoftwares.likeboost.ui.likeFragment.Likes_fragment;
+import com.lynhillsoftwares.likeboost.ui.settingsFragment.Settings_fragment;
+import com.lynhillsoftwares.likeboost.ui.withdrawlikesFragment.WithdrawLikes_fragment;
 
 public class HomeActivity extends BaseActivity {
 
     /*TODO View binding*/
     private ActivityHomeBinding vb;
+
+
+    /*TODO start Activity*/
+    public static void startActivity(Activity activity){
+
+        Intent intent = new Intent(activity, HomeActivity.class);
+        activity.startActivity(intent);
+    }
 
 
     @Override

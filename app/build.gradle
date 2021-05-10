@@ -37,7 +37,7 @@ android {
 
             instagramClientId    : "1016622862410930",
             instagramClientSecret: "62cd2060266093cda42a4784368ca42a",
-            instagramRedirectUrl : "http://localhost"
+            instagramRedirectUrl : "https://httpstat.us/200"
     ]
 }
 
@@ -48,6 +48,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-database:19.7.0'
+    implementation 'com.google.firebase:firebase-storage:19.2.2'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -79,9 +80,37 @@ dependencies {
     /*TODO Gson */
     implementation 'com.google.code.gson:gson:2.8.6'
 
+//
+//    /*TODO Instagram*/
+//    implementation 'com.jaychang:simpleauth-instagram:2.1.4'
+//
 
-    /*TODO Instagram*/
-    implementation 'com.jaychang:simpleauth-instagram:2.1.4'
+    def lifecycle_version = "2.3.0"
+    def room_version = "2.2.6"
+    //TODO ViewModel
+    //noinspection GradleDependency
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
 
+    //TODO LiveData
+    //noinspection GradleDependency
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
+
+    ////TODO    leak cannery
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.5'
+
+    //TODO
+
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+
+//TODO    volly dependancy
+    implementation 'com.android.volley:volley:1.1.1'
+
+    /*TODO ripple effect dependancy*/
+    implementation 'com.skyfishjy.ripplebackground:library:1.0.1'
 
 }
