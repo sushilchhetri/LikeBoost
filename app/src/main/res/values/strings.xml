@@ -4,6 +4,8 @@
     <!--TODO Facebook/inst-->
     <string name="facebook_app_id">496444588462185</string>
     <string name="fb_login_protocol_scheme">fb496444588462185</string>
+    <string name="tester_accessToken">IGQVJXYTEzY2JQRDFlZAFZAXRjZAETXI4QUFyTWNrUzhBWWhOWmdCQnpVbDViLWxtOEllT0ZAvc0gwdzV0MW9laHBrVURaZA2FmRjF1OGJKUW5Va2lWMzVfeG8zQjdCSmpLNjkxZA2JWSVlsQWJ6T05iSW1VUgZDZD</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -56,5 +58,14 @@
     <string name="req_post">reqesting posts in </string>
     <string name="timeelapsed">Time elapsed:</string>
     <string name="likesgiven">Likes given:</string>
+
+
+    <!--TODO Fragment Withdraw likes-->
+    <string name="withdraw_discription">Pending likes become available for withdrawal after our system confirms them.</string>
+    <string name="sa_loading">Loading...</string>
+
+
+    <!--TODO loading Activity -->
+    <string name="pleasewait">Please Wait....</string>
 
 </resources>

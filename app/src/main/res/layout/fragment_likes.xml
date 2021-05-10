@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.fragment.Likes_fragment">
+    tools:context=".ui.likeFragment.Likes_fragment">
 
     <!--TODO Earn Like container(Automatically option)-->
     <LinearLayout
@@ -74,6 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:visibility="gone"
         >
 
         <androidx.cardview.widget.CardView
@@ -199,6 +200,40 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
+
+
+
+    <!--TODO Demo Layouts-->
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        app:cardBackgroundColor="@color/mainlight"
+        app:cardCornerRadius="10dp">
+
+        <FrameLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/sendLikeID"
+                fontPath="fonts/Bold.otf"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="Like All Post"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+
+                />
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
 
 
 
