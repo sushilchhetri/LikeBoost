@@ -10,8 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -28,16 +30,32 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.lynhillsoftwares.likeboost.databinding.FragmentWithdrawLikesBinding;
+import com.lynhillsoftwares.likeboost.instagramlogin.pojo.SocialUser;
+import com.lynhillsoftwares.likeboost.pojo.SinglePost_detailPOJO;
+import com.lynhillsoftwares.likeboost.pojo.alljobpost.AllPost_POJO;
 import com.lynhillsoftwares.likeboost.pojo.Post_pojo;
+import com.lynhillsoftwares.likeboost.pojo.alljobpost.Cursors;
+import com.lynhillsoftwares.likeboost.pojo.alljobpost.Datum;
+import com.lynhillsoftwares.likeboost.pojo.alljobpost.Paging;
+import com.lynhillsoftwares.likeboost.ui.withdrawlikesFragment.adapter.AllPostRV_Adpater;
 import com.lynhillsoftwares.likeboost.utils.Constant;
+import com.lynhillsoftwares.likeboost.utils.VolleySingleton;
 
-import org.w3c.dom.Text;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
+
+import io.paperdb.Paper;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -53,7 +71,20 @@ public class WithdrawLikes_fragment extends Fragment {
     private StorageReference storageReference;
     private FirebaseStorage firebaseStorage;
     private DatabaseReference databaseReference;
-    private Uri img_url=null;
+    private Uri img_url = null;
+
+    /*TODO Social User*/
+    private SocialUser loginUser;
+
+    /*TODO Adapter*/
+    private AllPostRV_Adpater allPostRV_adpater;
+
+    /*TODO volley request */
+    private StringRequest fetchAllPost_Request, fetchSinglepostdetail_request;
+
+
+    /*TODO instagram API Urls*/
+    private String INSTA_URL = "https://graph.instagram.com/";
 
 
     public WithdrawLikes_fragment() {
@@ -61,10 +92,11 @@ public class WithdrawLikes_fragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        loginUser = Paper.book().read(Constant.LOGINUSER);
 
     }
 
@@ -74,10 +106,65 @@ public class WithdrawLikes_fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         /*TODO init view Binding */
-        vb = FragmentWithdrawLikesBinding.inflate(inflater,container,false);
+        vb = FragmentWithdrawLikesBinding.inflate(inflater, container, false);
+
         initfirebase();
         initOnclickListener();
+        initRecyclerview();
         return vb.getRoot();
+    }
+
+    /*TODO init recyclerview*/
+    private void initRecyclerview() {
+        LinearLayoutManager horizontalLayoutManagaer
+                = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        vb.imageRV.setLayoutManager(horizontalLayoutManagaer);
+
+         allPostRV_adpater = new AllPostRV_Adpater(new ArrayList<>(),getContext());
+        vb.imageRV.setAdapter(allPostRV_adpater);
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        allPostRV_adpater.clearArrayList();
+        showLoadinglayout();
+        fetchingAllPostID();
+    }
+
+
+    /*TODO onDestroy*/
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if(fetchAllPost_Request != null){
+            fetchAllPost_Request.cancel();
+        }
+
+        if(fetchSinglepostdetail_request != null){
+            fetchSinglepostdetail_request.cancel();
+        }
+    }
+
+
+
+    /*TODO loading animation show*/
+    private void showLoadinglayout() {
+
+        vb.rvLl.setVisibility(View.GONE);
+        vb.loadinglayoutRL.setVisibility(View.VISIBLE);
+        vb.loadingRipple.startRippleAnimation();
+
+    }
+
+    /*TODO hide loading animation*/
+    private void hideLoadinglayout(){
+
+        vb.rvLl.setVisibility(View.VISIBLE);
+        vb.loadinglayoutRL.setVisibility(View.GONE);
+        vb.loadingRipple.stopRippleAnimation();
     }
 
     /*TODO init onclick listener */
@@ -99,20 +186,152 @@ public class WithdrawLikes_fragment extends Fragment {
     }
 
 
+    /*TODO Fetching all post from instagram Api*/
+    private void fetchingAllPostID() {
+
+        String instaAllPostID = INSTA_URL + loginUser.userId + "/media?fields=id,caption&access_token=" + loginUser.accessToken;
+
+        fetchAllPost_Request = new StringRequest(Request.Method.GET,
+                instaAllPostID,
+                response -> {
+
+                    Log.e(TAG, "fetchingAllPostID: " + response);
+
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(response);
+
+                        AllPost_POJO allPost_pojo = new AllPost_POJO();
+
+                        /*TODO DATum Array*/
+                        JSONArray datumJSONArray = jsonObject.getJSONArray("data");
+                        ArrayList<Datum> datumArray = new ArrayList<>();
+                        for (int i = 0; i < datumJSONArray.length(); i++) {
+
+                            JSONObject jsonObject1 = (JSONObject) datumJSONArray.get(i);
+                            Datum datum = new Datum();
+                            datum.setId(jsonObject1.getString("id"));
+//                            jsonObject1.has("caption");
+                            if (jsonObject1.has("caption")) {
+
+                                datum.setCaption(jsonObject1.getString("caption"));
+                            }
+                            datumArray.add(datum);
+                        }
+
+                        /*TODO */
+                        JSONObject pagingObject = jsonObject.getJSONObject("paging").getJSONObject("cursors");
+                        String before = pagingObject.getString("before");
+                        String after = pagingObject.getString("after");
+                        String next="";
+                        if(jsonObject.getJSONObject("paging").has("next")){
+
+                            next = jsonObject.getJSONObject("paging").getString("next");
+                        }
+
+                        Cursors cursors = new Cursors();
+                        cursors.setAfter(after);
+                        cursors.setBefore(before);
+
+                        Paging paging = new Paging();
+                        paging.setNext(next);
+                        paging.setCursors(cursors);
+
+
+                        allPost_pojo.setData(datumArray);
+                        allPost_pojo.setPaging(paging);
+                        Log.e(TAG, "fetchingAllPostID:######### " + allPost_pojo.getData());
+
+                        /*TODO check if user have any post yet*/
+                        if(datumArray.size()<=0){
+
+                        }
+                        else{
+                            hideLoadinglayout();
+                        }
+
+                        /*TODO get Single post*/
+                        for (int i = 0; i < datumArray.size(); i++) {
+
+                            getSinglePost(datumArray.get(i));
+
+                        }
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                },
+                error -> {
+
+                    Log.e(TAG, "fetchingAllPostID: " + error);
+
+                }
+        );
+
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(fetchAllPost_Request);
+
+    }
+
+
+    /*TODO get Single post */
+    private void getSinglePost(Datum datum) {
+
+        String singlePostUrl = INSTA_URL + datum.getId() + "?fields=id,media_type,media_url,username,timestamp&access_token=" +
+                loginUser.accessToken;
+
+        fetchSinglepostdetail_request = new StringRequest(Request.Method.GET,
+                singlePostUrl,
+                response -> {
+                    Log.e(TAG, "getSinglePost:456245 " + response);
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response);
+
+                        String id = jsonObject.getString("id");
+                        String media_type = jsonObject.getString("media_type");
+                        String media_url = jsonObject.getString("media_url");
+                        String username = jsonObject.getString("username");
+                        String timestamp = jsonObject.getString("timestamp");
+
+                        SinglePost_detailPOJO singlePostPOjo = new SinglePost_detailPOJO();
+                        singlePostPOjo.setId(id);
+                        singlePostPOjo.setMedia_type(media_type);
+                        singlePostPOjo.setMedia_url(media_url);
+                        singlePostPOjo.setUsername(username);
+                        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ssZ");
+                        Date result = df.parse(timestamp) ;
+                        singlePostPOjo.setTimestamp(result);
+
+                        /*TODO populate allPostRV_adpater rv*/
+                        allPostRV_adpater.addSinglePostDetail(singlePostPOjo);
+
+                    } catch (JSONException | ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                },
+                error -> {
+                });
+        VolleySingleton.getInstance(getContext()).addToRequestQueue(fetchSinglepostdetail_request);
+
+    }
+
+
     /*TODO send request to firebase DataBase All_post*/
     private void sendRequstToFirebase() {
 
-        if(img_url != null && !TextUtils.isEmpty(vb.likecountEnter.getText())){
+        if (img_url != null && !TextUtils.isEmpty(vb.likecountEnter.getText())) {
 
             uploading_LoadingShow();
             uploadImageToFireBase(img_url);
-        }
-        else{
+        } else {
             Toast.makeText(getContext(), "Please fill the detail ", Toast.LENGTH_SHORT).show();
         }
 
     }
-
 
 
     /*TODO get Image From Gallery*/
@@ -145,26 +364,26 @@ public class WithdrawLikes_fragment extends Fragment {
         databaseReference = FirebaseDatabase.getInstance().getReference(Constant.ALL_POST);
     }
 
-    /*TODO on Activity Result*/
 
+    /*TODO on Activity Result*/
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
             return;
         }
-        if(requestCode == IMG_CODE){
+        if (requestCode == IMG_CODE) {
 
-           img_url = data.getData();
+            img_url = data.getData();
 
             vb.imageUploadingId.setImageURI(img_url);
 
-            Log.e(TAG, "onActivityResult:image url  "+img_url );
+            Log.e(TAG, "onActivityResult:image url  " + img_url);
 
         }
     }
 
-    /*TODO uploading loading process*/
+    /*TODO uploading loading process show*/
     private void uploading_LoadingShow() {
 
         vb.sendRequestid.setText("Sending Request please Wait...");
@@ -173,7 +392,8 @@ public class WithdrawLikes_fragment extends Fragment {
 
     }
 
-    private void uploading_LoadingHide(){
+    /*TODO uploading loading process hide*/
+    private void uploading_LoadingHide() {
         vb.sendRequestid.setText("Send Request");
         vb.uploadImgclick.setClickable(true);
         vb.uploadingProcesshide.setVisibility(View.GONE);
@@ -210,7 +430,7 @@ public class WithdrawLikes_fragment extends Fragment {
                     @Override
 
                     public void onSuccess(Uri uri) {
-                        Log.e(TAG, "onSuccess:imag uri "+uri );
+                        Log.e(TAG, "onSuccess:imag uri " + uri);
                         saveToAllPost(uri.toString());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -238,12 +458,11 @@ public class WithdrawLikes_fragment extends Fragment {
         post_pojo.setPost_by_email("fakeEmail@gmail.com");
         post_pojo.setTime_stamp(new Date().toString());
         post_pojo.setPost_img_url(imageurl);
-        if(TextUtils.isEmpty(vb.likecountEnter.getText())){
+        if (TextUtils.isEmpty(vb.likecountEnter.getText())) {
 
             post_pojo.setWant_like(5);
 
-        }
-        else{
+        } else {
             post_pojo.setWant_like(Integer.parseInt(vb.likecountEnter.getText().toString()));
         }
 
@@ -251,13 +470,13 @@ public class WithdrawLikes_fragment extends Fragment {
         /*TODO get timemilli for image unique name*/
         long timeMilli2 = calendar.getTimeInMillis();
 
-        databaseReference.child("Post_"+String.valueOf(timeMilli2)).setValue(post_pojo).addOnCompleteListener(success->{
+        databaseReference.child("Post_" + String.valueOf(timeMilli2)).setValue(post_pojo).addOnCompleteListener(success -> {
 
-            if(success.isSuccessful()){
+            if (success.isSuccessful()) {
                 uploading_LoadingHide();
                 Toast.makeText(getContext(), "Successfully send request", Toast.LENGTH_SHORT).show();
             }
-        }).addOnFailureListener(error->{
+        }).addOnFailureListener(error -> {
             uploading_LoadingHide();
             Toast.makeText(getContext(), "Failed to send request try again after some time", Toast.LENGTH_SHORT).show();
         });

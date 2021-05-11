@@ -6,10 +6,10 @@
     <string name="fb_login_protocol_scheme">fb496444588462185</string>
     <string name="tester_accessToken">IGQVJXYTEzY2JQRDFlZAFZAXRjZAETXI4QUFyTWNrUzhBWWhOWmdCQnpVbDViLWxtOEllT0ZAvc0gwdzV0MW9laHBrVURaZA2FmRjF1OGJKUW5Va2lWMzVfeG8zQjdCSmpLNjkxZA2JWSVlsQWJ6T05iSW1VUgZDZD</string>
 
+    <!--TODO Splash Screen Activity-->
+    <string name="powerby">Power by LikeBoost</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--TODO Login Activity-->
     <string name="login">Log in</string>
@@ -67,5 +67,6 @@
 
     <!--TODO loading Activity -->
     <string name="pleasewait">Please Wait....</string>
+
 
 </resources>
