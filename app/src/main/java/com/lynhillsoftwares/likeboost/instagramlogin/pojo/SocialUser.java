@@ -16,6 +16,7 @@ public class SocialUser implements Parcelable {
     public String fullName;
     public String email;
     public String pageLink;
+    public String tokenExpires_in;
 
     public SocialUser() {
     }
@@ -28,6 +29,34 @@ public class SocialUser implements Parcelable {
         this.fullName = other.fullName;
         this.email = other.email;
         this.pageLink = other.pageLink;
+    }
+
+    protected SocialUser(Parcel in) {
+        userId = in.readString();
+        accessToken = in.readString();
+        profilePictureUrl = in.readString();
+        username = in.readString();
+        fullName = in.readString();
+        email = in.readString();
+        pageLink = in.readString();
+        tokenExpires_in = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userId);
+        dest.writeString(accessToken);
+        dest.writeString(profilePictureUrl);
+        dest.writeString(username);
+        dest.writeString(fullName);
+        dest.writeString(email);
+        dest.writeString(pageLink);
+        dest.writeString(tokenExpires_in);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<SocialUser> CREATOR = new Creator<SocialUser>() {
@@ -67,34 +96,9 @@ public class SocialUser implements Parcelable {
         sb.append("profilePictureUrl=").append(profilePictureUrl).append("\n\n");
         sb.append("pageLink=").append(pageLink).append("\n\n");
         sb.append("accessToken=").append(accessToken).append("\n\n");
+        sb.append("expires_in=").append(tokenExpires_in).append("\n\n");
         sb.append('}');
         return sb.toString();
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.userId);
-        dest.writeString(this.accessToken);
-        dest.writeString(this.profilePictureUrl);
-        dest.writeString(this.username);
-        dest.writeString(this.fullName);
-        dest.writeString(this.email);
-        dest.writeString(this.pageLink);
-    }
-
-    protected SocialUser(Parcel in) {
-        this.userId = in.readString();
-        this.accessToken = in.readString();
-        this.profilePictureUrl = in.readString();
-        this.username = in.readString();
-        this.fullName = in.readString();
-        this.email = in.readString();
-        this.pageLink = in.readString();
     }
 
 

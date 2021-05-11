@@ -1,7 +1,5 @@
 package com.lynhillsoftwares.likeboost.instagramlogin;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -19,13 +17,11 @@ import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import com.lynhillsoftwares.likeboost.databinding.ActivityInstaAuthBinding;
 import com.lynhillsoftwares.likeboost.instagramlogin.pojo.SocialUser;
@@ -35,16 +31,8 @@ import com.lynhillsoftwares.likeboost.utils.VolleySingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class instaAuthActivity extends SimpleAuthActivity {
@@ -55,14 +43,15 @@ public class instaAuthActivity extends SimpleAuthActivity {
     private static final String TAG = instaAuthActivity.class.getSimpleName();
 
     private StringRequest instloginReQest, userDeailRequest, UserOtherDetailRequest;
-
+    private StringRequest longLiveAccessTokenRequest;
 
     /*TODO instagram Auth  Url*/
     private static final String AUTH_URL = "https://api.instagram.com/oauth/authorize/?client_id=%1$s&redirect_uri=%2$s&response_type=code&scope=%3$s";
     private static final String TOKEN_URL = "https://api.instagram.com/oauth/access_token";
     private static final String PAGE_LINK = "https://www.instagram.com/%1$s/";
-    private static final String INSTALIKE_USER = "https://graph.instagram.com/";
+    private static final String INSTALINK_USER = "https://graph.instagram.com/";
     private static final String INSTA_USER_DETAILURL = "https://www.instagram.com/";
+    private static final String LONG_LIVE_TOKEN_URL = "https://graph.instagram.com/access_token";
 //    https://www.instagram.com/lynhill/?__a=1 For Feting instagram User details
 
     /*TODO instagram Variable*/
@@ -145,7 +134,6 @@ public class instaAuthActivity extends SimpleAuthActivity {
 
 
     /*TODO volley call for data*/
-
     private void requestvolley(String code) {
 
         instloginReQest = new StringRequest(com.android.volley.Request.Method.POST
@@ -160,8 +148,9 @@ public class instaAuthActivity extends SimpleAuthActivity {
                         user.accessToken = jsonObject.getString("access_token");
                         user.userId = jsonObject.getString("user_id");
 
-                        /*TODO Get User Detail from instagram*/
-                        getUserDetail(user);
+                        /*TODO generate long live access token  */
+                        getLongLiveToken(user);
+
 
                     } catch (JSONException e) {
 
@@ -210,15 +199,57 @@ public class instaAuthActivity extends SimpleAuthActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(instloginReQest);
     }
 
+    /*TODO generate long live access token  */
+    private void getLongLiveToken(SocialUser user) {
+
+
+   /*     "https://graph.instagram.com/access_token
+                ?grant_type=ig_exchange_token
+                &client_secret={instagram-app-secret}
+                &access_token={short-lived-access-token}"*/
+
+        String longlive_accessLink = LONG_LIVE_TOKEN_URL
+                + "?grant_type=ig_exchange_token&client_secret=" + Constant.INSTA_SECRET
+                + " &access_token=" + user.accessToken;
+
+        longLiveAccessTokenRequest = new StringRequest(Request.Method.GET,
+                longlive_accessLink,
+                response -> {
+                    Log.e(TAG, "getLongLiveToken: " + response);
+
+                    try {
+                        JSONObject getLongLiveTokenobj = new JSONObject(response);
+
+                        user.accessToken = getLongLiveTokenobj.getString("access_token");
+                        user.tokenExpires_in = getLongLiveTokenobj.getString("expires_in");
+
+
+                        /*TODO Get User Detail from instagram*/
+                        getUserDetail(user);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                },
+                error -> {
+
+                });
+
+        VolleySingleton.getInstance(this).addToRequestQueue(longLiveAccessTokenRequest);
+    }
+
 
     /*TODO Volley Call for User details*/
     private void getUserDetail(SocialUser user) {
 
-        String userDetailURL = INSTALIKE_USER + user.userId + "?fields=id,username&access_token=" + user.accessToken;
+        String userDetailURL = INSTALINK_USER + user.userId + "?fields=id,username&access_token=" + user.accessToken;
 
         userDeailRequest = new StringRequest(com.android.volley.Request.Method.GET
                 , userDetailURL,
                 response -> {
+
                     Log.e(TAG, "getUserDetail: response---> " + response);
                     try {
 

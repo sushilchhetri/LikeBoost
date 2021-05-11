@@ -1,6 +1,8 @@
 package com.lynhillsoftwares.likeboost.login;
 
+import android.app.Activity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.lynhillsoftwares.likeboost.databinding.ActivityLoginBinding;
 import com.lynhillsoftwares.likeboost.instagramlogin.SimpleAuth;
 import com.lynhillsoftwares.likeboost.instagramlogin.callback.AuthCallback;
 import com.lynhillsoftwares.likeboost.instagramlogin.pojo.SocialUser;
+import com.lynhillsoftwares.likeboost.loadingActivity.LoadingActivity;
 import com.lynhillsoftwares.likeboost.ui.activity.BaseActivity;
 import com.lynhillsoftwares.likeboost.ui.activity.HomeActivity;
 import com.lynhillsoftwares.likeboost.utils.Constant;
@@ -28,7 +31,11 @@ public class Login_Activity extends BaseActivity {
     /*TODO ViewBinding*/
     private ActivityLoginBinding vb;
 
-
+    /*TODO start Activity*/
+    public static void startActivity(Activity activity){
+        Intent intent = new Intent(activity, Login_Activity.class);
+        activity.startActivity(intent);
+    }
 
 
     @Override
@@ -67,7 +74,7 @@ public class Login_Activity extends BaseActivity {
 
                 /*TODO onsuccessfully fetching data move to Login Activity*/
                 HomeActivity.startActivity(Login_Activity.this);
-
+                finish();
             }
 
             @Override

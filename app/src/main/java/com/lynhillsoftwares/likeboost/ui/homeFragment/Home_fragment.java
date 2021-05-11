@@ -38,14 +38,12 @@ public class Home_fragment extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        Log.e(TAG, "onAttach: ");
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.e(TAG, "onCreate: ");
         /*TODO fetch login user from paper library*/
         loginuser = Paper.book().read(Constant.LOGINUSER);
 
@@ -56,7 +54,7 @@ public class Home_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        Log.e(TAG, "onCreateView: ");
+
         /*TODO init view Binding */
         vb = FragmentHomeBinding.inflate(inflater, container, false);
         if(loginuser != null){
@@ -79,9 +77,4 @@ public class Home_fragment extends Fragment {
 
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.e(TAG, "onPause: ");
-    }
 }

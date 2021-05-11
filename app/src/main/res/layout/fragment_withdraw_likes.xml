@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".ui.withdrawlikesFragment.WithdrawLikes_fragment">
 
-    <!--TODO Earn Like container(Automatically option)-->
+    <!--TODO Withdraw Likes (Available, Pending)-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -154,136 +154,186 @@
 
     </LinearLayout>
 
+
     <!--TODO Instagram image show Recyclerview-->
     <FrameLayout
         android:id="@+id/imageRVContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:weightSum="2"
 
                 >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:id="@+id/rv_ll"
+                    android:visibility="gone">
 
+                <!--TODO Rv for fetching posted image from Instagram-->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/imageRV"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="10dp" />
 
-            </LinearLayout>
+
+                </LinearLayout>
+
+
+                <!--TODO loading image -->
+                <RelativeLayout
+                    android:id="@+id/loadinglayout_RL"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:visibility="visible">
+
+                    <com.skyfishjy.library.RippleBackground
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:id="@+id/loadingRipple"
+                        app:rb_color="@color/mainlight"
+                        app:rb_radius="20dp"
+                        app:rb_rippleAmount="7"
+                        app:rb_duration="2000"
+                        app:rb_scale="2"
+                        android:layout_centerInParent="true"/>
+
+                    <TextView
+                        fontPath="fonts/SemiBold.otf"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/loadingRipple"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/pleasewait"
+                        android:textColor="@color/maindark"
+                        android:gravity="center"
+                        />
+
+                </RelativeLayout>
+
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
     </FrameLayout>
+
 
     <!--TODO DEmo -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:padding="10dp">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.cardview.widget.CardView
-                android:id="@+id/imgUpload_card"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="10dp">
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageUploading_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </FrameLayout>
-            </androidx.cardview.widget.CardView>
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="10dp"
-                app:cardBackgroundColor="@color/mainlight"
-                app:cardCornerRadius="10dp">
-
-                <FrameLayout
-                    android:id="@+id/upload_imgclick"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/uploadimage_txt_id"
-                        fontPath="fonts/Bold.otf"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="upload"
-                        android:textColor="@color/white"
-                        android:textSize="8sp"
-
-                        />
-                </FrameLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
+        android:padding="10dp"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
-            <TextView
-                fontPath="fonts/Bold.otf"
+
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/imgUpload_card"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="10dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/imageUploading_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="10dp"
+                    app:cardBackgroundColor="@color/mainlight"
+                    app:cardCornerRadius="10dp">
+
+                    <FrameLayout
+                        android:id="@+id/upload_imgclick"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/uploadimage_txt_id"
+                            fontPath="fonts/Bold.otf"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="upload"
+                            android:textColor="@color/white"
+                            android:textSize="8sp"
+
+                            />
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Like To Receive"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textColor="@color/maindark"
-                />
-            <EditText
-                android:id="@+id/likecountEnter"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    fontPath="fonts/Bold.otf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="Like To Receive"
+                    android:textColor="@color/maindark"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/likecountEnter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
         <FrameLayout
             android:id="@+id/uploadingProcesshide"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#3C71AEF1"
-            android:visibility="gone"
-            />
+            android:visibility="gone" />
 
     </FrameLayout>
 
+    <!--TODO button send request-->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -291,7 +341,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         app:cardBackgroundColor="@color/mainlight"
-        app:cardCornerRadius="10dp">
+        app:cardCornerRadius="10dp"
+        android:visibility="gone">
 
         <FrameLayout
 
